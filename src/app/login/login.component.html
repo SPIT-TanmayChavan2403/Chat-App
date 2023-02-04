@@ -1,0 +1,14 @@
+<div id="login-container-wrapper" style="display: {{displayVal}};">
+    <div id="login-container">
+        <div id="heading">
+            <h2>Login</h2>
+        </div>
+        <div id="input-section">
+            <input type="text" #username class="inp" placeholder="Username">
+            <input type="text" #password class="inp" placeholder="Password">
+        </div>
+        <div id="submit-section">
+            <button id="submit" (click)="login(username.value, password.value)" >Submit</button>
+        </div>
+    </div>
+</div>

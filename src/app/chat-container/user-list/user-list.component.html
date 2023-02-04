@@ -1,0 +1,9 @@
+<div id="user" *ngFor="let name of service.userList" (click)="service.fetchChats(name)" >
+    <div id="color-bar"></div>
+    <div id="profile">
+        <img src="../../../assets/avatar.png" alt="Profile image">
+    </div>
+    <div id="name">
+        <h3> {{name}} </h3>
+    </div>
+</div>
