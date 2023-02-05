@@ -11,6 +11,14 @@ const schema = mongoose.Schema({
         required: true,
         unique: true
     },
+    about:{
+        type:String,
+        required: false,
+    },
+    profileUrl:{
+        type:String,
+        required: false,
+    },
     users:{
         type:Object,
         required: false
@@ -25,7 +33,7 @@ schema.statics.login = async function(username, password){
     const user = await this.findOne({username: username});
     if (user){
         if (password === user.password){
-            return user.username;
+            return user;
         } else {
             throw Error('Incorrect password');
         }

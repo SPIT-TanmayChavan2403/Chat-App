@@ -3,6 +3,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const userSchema = require('./models/userModel');
 const HelperFunc = require('./helperFunctions');
+const fileUpload = require("express-fileupload");
+
+// Routers
+const imageRouter = require('./routes/imageRoutes');
+const accountRouter = require('./routes/accountRoutes');
 
 const m = new HelperFunc();
 
@@ -13,10 +18,13 @@ const URL = 'mongodb+srv://tanmay:2022510005@cluster0.lbhju4i.mongodb.net/chatAp
 // const URL = "mongodb://localhost:4000/tanmay"
 mongoose.connect(URL)
 .then(res => console.log('Connected successfully!'))
-.catch(err => console.log('ERROR...'));
+.catch(err => console.log('ERROR...', err));
 
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload());
+app.use(imageRouter);    // Router
+app.use(accountRouter); // Router
 
 app.post('/getUserList', (req, res)=>{
     userSchema.find({username: req.body.username}, (error, data) =>{
@@ -34,14 +42,11 @@ app.post('/getUserList', (req, res)=>{
 
 app.post('/getChats', (req, res) => {
     const {user, friend} = req.body;
-    console.log(user, friend);
 
     userSchema.findOne({username: user},{[`users.${friend}`]: 1, _id: 0}, (error, data) => {
         if (error)        {
             res.json({msg: "Couldn't find data"}).end();
         } else {
-            console.log(data.users[friend]);
-
             userSchema.findOne(
                 {username: friend},
                 { "socketId": 1 },
@@ -49,7 +54,7 @@ app.post('/getChats', (req, res) => {
                     if (error){
                         console.log('Failed while getting socketId');
                     } else {
-                        res.json({msg: data.users[friend], status: response.socketId.length == 0})
+                        res.json({msg: data.users[friend], status: response.socketId.length != 0})
                     }
                 }
             )
@@ -94,8 +99,10 @@ app.post('/login', async(req, res) => {
     database.password = password;
     try{
         const user = await userSchema.login(username, password);
-        res.json({status: "PASS", msg: "Logged in successfully...", username});
+        res.json({status: "PASS", msg: "Logged in successfully...", username, data: user});
     } catch(err){
+        database.about = "Enjoy your life being Otaku!";
+        database.profileUrl = "../../../assets/avatar.jpg";
         database.save((error) => {
             if (error){
                 msg = m.extractError(error);
@@ -105,7 +112,6 @@ app.post('/login', async(req, res) => {
             }
         });
     }
-    
 })
 
 
@@ -178,7 +184,6 @@ io.on('connection', socket => {
     socket.emit("firstEmit", socket.id);
 
     socket.on('saveSocketId', (req) => {
-        console.log(req);
         socket["username"] = req.username;
         userSchema.updateOne(
             {username: req.username}, // Filter
@@ -201,7 +206,6 @@ io.on('connection', socket => {
     })
 
     socket.on("sendMessage",  (req) => {
-        console.log(req);
         userSchema.find(
             {username: req.receiver},
             {"socketId": 1, _id: 0},
