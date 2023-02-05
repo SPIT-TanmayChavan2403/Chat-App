@@ -1,0 +1,58 @@
+#inner-wrapper{
+    width: 75%;
+    margin-top: 100px;
+    padding: 40px 0px;
+}
+
+#data{
+    width: 100%;
+}
+
+tr{
+    margin: 5px;
+}
+
+td:nth-child(1){
+    width: 20%;
+}
+
+td{
+    padding: 10px;
+    /* border: 1px solid black; */
+}
+.inp{
+    display: inline-block;
+    width: fit-content;
+    height: 40px;
+    border: 1px solid grey;
+}
+
+.inp input{
+    width: 640px;
+    height: 100%;
+    border: none;
+    outline:none;
+    padding: 0px 15px;
+}
+
+.ico{
+    color: grey;
+    cursor: pointer;
+    margin: 0px 10px;
+    font-size: 1.2rem;
+}
+
+td button{
+    margin: 0px 15px;
+    padding: 5px 15px;
+    border: none;
+}
+
+@media only screen and (max-width: 600px){
+    .inp input{
+        width: 200px;
+    }
+    #inner-wrapper{
+        width: 90%;
+    }
+}

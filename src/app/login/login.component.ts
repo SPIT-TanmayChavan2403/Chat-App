@@ -8,7 +8,6 @@ import { WebSocketService } from '../web-socket.service';
 })
 export class LoginComponent {
 
-
     displayVal:string = "flex";
 
     constructor(private service: WebSocketService){}
@@ -35,9 +34,15 @@ export class LoginComponent {
             alert(data.msg);
           } else {
             alert(data.msg);
+            console.log(data);
+            this.service.about = data.data.about;
+            this.service.profileURL = data.data.profileUrl;
+            this.service.password = data.data.password;
             window.sessionStorage.setItem('user', data.username)
             this.displayVal = 'none';
             this.service.fetchUserList(data.username);
+            console.log(this.service.chats.length);
+
           }
         })
         .catch(err => console.log(err));

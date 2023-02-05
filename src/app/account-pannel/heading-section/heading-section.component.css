@@ -1,0 +1,75 @@
+#inner-wrapper{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#avatar-container{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#avatar-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#name-section{
+    width: 80%;
+    height: 100%;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#underline{
+    width: relative;
+    left: 25px;
+    top: -10px;
+    position: relative;
+    /* border: 2px solid rgba(255,255,255,0.5); */
+    border: 2px solid rgba(0, 191, 255, 0.7);
+}
+
+#username, #about{
+    width: 100%;
+}
+
+#username h1{
+    width: fit-content;
+}
+
+#account-section{
+    width: 100%;
+    border: 1px solid black;
+}
+
+#userlist-section{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.ico{
+    cursor: pointer;
+    color: red;
+    font-size: 2.5rem;
+}
+
+@media only screen and (max-width: 600px){
+    #inner-wrapper{
+        width: 90%;
+        justify-content: space-between;
+    }
+    #avatar-container{
+        width: 80px;
+        height: 80px;
+    }
+}
+
+

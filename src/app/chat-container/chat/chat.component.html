@@ -13,31 +13,50 @@
     </div>
     <div id="status">
         <div id="name">
-            <h2> {{service.friendName}} </h2>
+            <h2> {{helper.capitalize(service.friendName)}} </h2>
         </div>
         <div id="currStatus">
-            <h4>Offline</h4>
+            <h4 *ngIf ="service.isOnline == true" >Online</h4>
+            <h4 *ngIf ="service.isOnline == false" >Offline</h4>
         </div>
     </div>
     <div id="extra-section"></div>
 </div>
+
 <div id="chat-mid-section">
-    <div id="nullSec" *ngIf="service.chats.length == 0" >
+    <div id="nullSec" *ngIf="service.chats.length == 0">
         <img src="../../../assets/nullChats.png" alt="Nothing to display">
-    </div>
-    <div id="messages">
-        <li class="msg-cont" *ngFor="let text of service.chats">
+    </div> 
+    <div  id="messages" #chatSection >
+        <li class="msg-cont" *ngFor="let text of service.chats; let lastEle = last">
+            {{lastEle ? updateFrame(chatSection) : null}}
             <div class="msg" [ngClass]="{'floatLeft': text.split('/')[0] == 'FROM', 'floatRight': text.split('/')[0] == 'TO'}">
-                {{ text.split('/')[1] }}
+                <img *ngIf="text.split('/')[1].split('>').length > 1" [src]="text.split('>')[1].split('?')[0]" alt="Image">
+                <p *ngIf="text.split('/')[1].split('>').length <= 1" > {{text.split('/')[1]}} </p>
             </div>
         </li>
     </div>
-
+    
+    <div id="image-inp-container" #imgDisplay>
+        <div id="img-container">
+            <img [src]="imgURL" alt="Image.jpg">
+        </div>
+        <div id="send-button">
+            <h4 (click)="uploadImage(imgDisplay, message ,chatSection )">Send</h4>
+        </div>
+    </div>
 
 </div>
+
 <div id="chat-bottom-section">
-    <input type="text" id="userInput" #message placeholder="Type here...">
-    <button id="sendButton" (click)="service.sendMessage(message.value, message)" >
+    <div id="inp-wrapper">
+        <input type="text" id="userInput" #message placeholder="Type here...">
+        <i class="fa-solid fa-paper-plane icon" (click)="service.sendMessage(message.value, message, chatSection)"></i>
+    </div>
+    <input type="file" #imgInputEle style="opacity: 0; width: 0px;height: 0px; pointer-events: none;" >
+    <i class="fa-solid fa-image icon" (click)="sendImage(imgDisplay, imgInputEle)" ></i>
+    <i class="fa-solid fa-face-smile icon"></i>
+    <!-- <button id="sendButton" (click)="service.sendMessage(message.value, message, chatSecion)" >
         <img src="../../../assets/sendBtn.png" alt="Send">
-    </button>
+    </button> -->
 </div>

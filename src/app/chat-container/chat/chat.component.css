@@ -10,7 +10,7 @@
     width: 100%;
     height: 75%;
     padding: 10px;
-    overflow: scroll;
+    position: relative;
 }
 
 .msg{
@@ -21,8 +21,12 @@
 
 #chat-bottom-section{
     width: 100%;
-    height: 10;
-    
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0px;
+    /* border-top: 2px solid rgb(199, 199, 199); */
 }
 
 #profile{
@@ -67,23 +71,7 @@
 }
 
 
-#chat-bottom-section{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 0px;
-    border-top: 2px solid rgb(199, 199, 199);
-}
 
-#userInput{
-    width: 70%;
-    height: 40px;
-    padding: 0px 25px;
-    font-weight: 500;
-    outline: none;
-    border-radius: 50px;
-    border: 1px solid rgb(226, 226, 226);
-}
 
 #sendButton{
     width: 45px;
@@ -95,7 +83,6 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    border: 2px solid grey;
 }
 
 #sendButton img{
@@ -119,6 +106,8 @@
 #messages{
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
+    pointer-events: none;
 }
 
 .msg-cont{
@@ -151,4 +140,90 @@
     float: right;
     background-color:#005db2;
     color:white
+}
+
+.icon{
+    cursor: pointer;
+    color: grey;
+    transition: 0.1s;
+    font-size: 1.35rem;
+}
+
+.icon:hover{
+    color: black;
+}
+
+#userInput{
+    width: 93%;
+    height: 100%;
+    font-weight: 500;
+    outline: none;
+    margin: 0px;
+    border: none;
+}
+
+#inp-wrapper{
+    width: 90%;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid #cac3c3;
+}
+
+#image-inp-container{
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    transition: 0.3s;
+    justify-content: center;
+    background-color: white;
+    align-content: space-around;
+    border: 1px dashed grey;
+    transform: scale(0) translate(-50%, -50%);
+    /* background-color: var(--black); */
+}
+
+#img-container{
+    width: 100%;
+    height: 87%;
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed white;
+}
+
+#img-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#send-button{
+    cursor: pointer;
+    padding: 7px 20px;
+    border-radius: 3px;
+    color: white;
+    background-color: var(--blue);
+}
+
+.imgplaceholder{
+    font-size: 10rem;
+    color: rgb(69, 69, 69);
+}
+
+.msg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chatPointerEvent{
+    pointer-events: none;
 }

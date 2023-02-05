@@ -1,9 +1,12 @@
 <div id="account">
+
     <div id="icon-wrapper">
-        <div id="icon-container">
-            <img src="../../../assets/avatar.jpg" alt="Avatar">
+        <div id="icon-container" (click)="showAccPannel()" >
+            <!-- <img src="../../../assets/avatar.jpg" alt="Avatar"> -->
+            <img src="{{service.profileURL}}" alt="Avatar">
         </div>
     </div>
+
     <div id="actions">
         <i id="addIcon" (click)="displayUserBox()" class="fa-solid fa-circle-plus"></i>
         <div id="addUser-cont" style="left:{{leftProp}}; opacity: {{opacity}}; pointer-events: {{pointerE}} ">
@@ -12,5 +15,7 @@
             <button id="addButton" (click)="addFriend(friend.value)" >Add</button>
         </div>
     </div>
+
+    
 
 </div>

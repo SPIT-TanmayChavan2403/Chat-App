@@ -1,0 +1,18 @@
+<div id="inner-wrapper">
+    <div>
+        <h2>Friends</h2>
+    </div>
+    <div id="friends-list">
+        <div class="friend" *ngFor="let friend of service.userList">
+            <div class="avatar">
+                <img src="../../../assets/avatar.png" alt="Profile pic">
+            </div>
+            <div class="name">
+                <h3> {{friend}} </h3>
+            </div>
+            <div class="delete">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+        </div>
+    </div>
+</div>

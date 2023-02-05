@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HelperService } from 'src/app/helper.service';
 import { WebSocketService } from 'src/app/web-socket.service';
 
 
@@ -8,7 +9,7 @@ import { WebSocketService } from 'src/app/web-socket.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent {
-    constructor(public service: WebSocketService){}
+    constructor(public service: WebSocketService, public helper: HelperService){}
 
     displayChats(name: string){
       console.log(name);

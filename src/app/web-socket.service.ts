@@ -6,13 +6,18 @@ import {io} from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
+
 export class WebSocketService {
     socket: any;
     id:string = "";
     chats: string[] = [];
     username:string = "";
     friendName: string = "";
+    isOnline: boolean = false;
     userList: string[] = [];
+    about: string = "";
+    password: string = "";
+    profileURL: string = "";
     readonly uri: string = "ws://localhost:3000";
 
     constructor() {
@@ -35,6 +40,7 @@ export class WebSocketService {
       .then(resp => resp.json())
       .then(data => {
         this.chats = data.msg;
+        this.isOnline = data.status;
         this.chats.shift();
       })
       .catch(err => console.log("Couldn't fetch chats of user", name));
@@ -71,11 +77,15 @@ export class WebSocketService {
       });
     }
 
-    sendMessage(message: string, textBox: any){
+    sendMessage(message: string, textBox: any, chatSec: any){
       textBox.value = "";
       let msg = "TO/" + message;
       this.chats.push(msg);
+      console.log('Message sending is...',msg);
       this.socket.emit('sendMessage', {sender:this.username, receiver: this.friendName, message});
+      setTimeout(() => {
+        chatSec.scrollTo(0, chatSec.scrollHeight);
+      }, 200)
     }
 
     emit(eventName:string, data: any){

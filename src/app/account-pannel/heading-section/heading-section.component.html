@@ -1,0 +1,19 @@
+<div id="inner-wrapper">
+    <div id="avatar-container">
+        <img src="{{service.profileURL}}" alt="Profile pic">
+    </div>
+    <div id="name-section">
+        <div id="username">
+            <h1 style="font-size: 2.5rem;">
+                {{service.username}}
+                <div id="underline"></div>
+            </h1>
+            
+        </div>
+        <div id="about">
+            <!-- <h4>I am your best friend only when you need help but not when you wanna enjoy.</h4> -->
+            <h4>{{service.about}}</h4>
+        </div>
+    </div>
+    <i (click)="closeAccPannel()" class="fa-solid fa-xmark ico"></i>
+</div>

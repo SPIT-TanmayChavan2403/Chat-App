@@ -1,5 +1,7 @@
 import { trigger } from '@angular/animations';
 import { Component } from '@angular/core';
+import { HelperService } from 'src/app/helper.service';
+import { WebSocketService } from 'src/app/web-socket.service';
 
 @Component({
   selector: 'app-account',
@@ -11,6 +13,9 @@ export class AccountComponent {
   opacity: string = "0";
   pointerE:string = "none";
   toggle:boolean = true;
+
+  constructor(private helper: HelperService, public service: WebSocketService){}
+
   displayUserBox(){
     if(this.toggle){
       this.leftProp = "80px";
@@ -42,5 +47,9 @@ export class AccountComponent {
       this.displayUserBox();
     })
     .catch(err => console.log(err));
+  }
+
+  showAccPannel(){
+    this.helper.leftPosition = "0";
   }
 }

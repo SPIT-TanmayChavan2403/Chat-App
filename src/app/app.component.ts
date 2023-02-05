@@ -40,8 +40,8 @@ export class AppComponent {
       console.log(data);
     })
 
-    if (!window.sessionStorage.getItem('user')){
-      alert("PLease login before starting Chat.");
-    }
+    // if (!window.sessionStorage.getItem('user')){
+    //   alert("PLease login before starting Chat.");
+    // }
   }
 }

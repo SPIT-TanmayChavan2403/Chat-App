@@ -3,7 +3,6 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid black;
     background-color: #262626;
 }
 
@@ -15,19 +14,18 @@
     align-items: center;
 }
 
-
-
 #icon-container{
     width: 60px;
     height: 60px;
+    cursor: pointer;
     overflow: hidden;
     border-radius: 50%;
 }
 
 #icon-container img{
-    width: 120%;
-    height: 120%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #actions{

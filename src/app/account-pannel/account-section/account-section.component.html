@@ -1,0 +1,44 @@
+<div id="inner-wrapper">
+    <table id="data">
+        <tr>
+            <td> <b>Username: </b> </td>
+            <td>
+                <div class="inp">
+                    <input type="text" value={{service.username}}>
+                    <!-- <i class="fa-solid fa-pen-to-square ico"></i> -->
+                </div>
+                <!-- <button>Update</button> -->
+            </td>
+        </tr>
+        <tr>
+            <td> <b>Password: </b> </td> 
+            <td>
+                <div class="inp">
+                    <input type="password" value="{{service.password}}">
+                    <!-- <i class="fa-solid fa-pen-to-square ico"></i> -->
+                </div>
+                <!-- <button  >Update</button> -->
+            </td>
+        </tr>
+        <tr>
+            <td> <b>About: </b> </td> 
+            <td>
+                <div class="inp">
+                    <input type="text" #about value="{{service.about}}">
+                    <i class="fa-solid fa-pen-to-square ico"></i>
+                </div>
+                <button (click)="updateInfo(about, 'about')" >Update</button>
+            </td>
+        </tr>
+        <tr>
+            <td> <b>Update Profile: </b> </td> 
+            <td>
+                <div class="inp">
+                    <input type="text" #profilePic>
+                    <i class="fa-solid fa-pen-to-square ico"></i>
+                </div>
+                <button (click)="updateInfo(profilePic, 'profileUrl')" >Update</button>
+            </td>
+        </tr>
+    </table>
+</div>
