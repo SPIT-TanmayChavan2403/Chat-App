@@ -42,7 +42,6 @@ app.post('/getUserList', (req, res)=>{
 
 app.post('/getChats', (req, res) => {
     const {user, friend} = req.body;
-
     userSchema.findOne({username: user},{[`users.${friend}`]: 1, _id: 0}, (error, data) => {
         if (error)        {
             res.json({msg: "Couldn't find data"}).end();
@@ -54,7 +53,7 @@ app.post('/getChats', (req, res) => {
                     if (error){
                         console.log('Failed while getting socketId');
                     } else {
-                        res.json({msg: data.users[friend], status: response.socketId.length != 0})
+                        res.json({msg: data.users[friend], status: response.socketId.length >= 1})
                     }
                 }
             )
@@ -82,7 +81,23 @@ app.post("/saveUser", (req, res) =>{
                     if (error){
                         res.json({status: "FAIL", msg:"Friend not added"}).end();
                     } else{
-                        res.json({status: "PASS", msg:"Friend added successfully"}).end();
+                        userSchema.updateOne(
+                            {username: friend},
+                            {
+                                $set:{
+                                    [`users.${user}`]: ["INNIT"]
+                                }
+                            },
+                            {
+                                upsert: true
+                            }
+                            , (error, data) => {
+                                if (error){
+                                    res.json({status: "FAIL", msg:"Friend not added"}).end();
+                                } else{
+                                    res.json({status: "PASS", msg:"Friend added successfully"}).end();
+                                }
+                        })
                     }
                 })
         } else {
@@ -103,6 +118,7 @@ app.post('/login', async(req, res) => {
     } catch(err){
         database.about = "Enjoy your life being Otaku!";
         database.profileUrl = "../../../assets/avatar.jpg";
+        database.socketId = "#";
         database.save((error) => {
             if (error){
                 msg = m.extractError(error);
@@ -117,7 +133,6 @@ app.post('/login', async(req, res) => {
 
 app.post('/saveSocketID', (req, res) => {
     const {socketId, user} = req.body;
-    console.log('Saving... ', socketId, ' ', user);
 })
 
 app.get('/', (req, res) => {
@@ -173,12 +188,9 @@ io.on('connection', socket => {
             (error, res) => { // Callback function which will be executed when the data is updated or failed to update
                 if (error){
                     console.log('Error while saving socket ID', error);
-                }else {
-                    console.log('Socket Id saved successfully for the user.');
                 }
             }
         )
-        console.log('User ', socket.id, ' disconnected');
     });
 
     socket.emit("firstEmit", socket.id);
@@ -198,8 +210,6 @@ io.on('connection', socket => {
             (error, res) => { // Callback function which will be executed when the data is updated or failed to update
                 if (error){
                     console.log('Error while saving socket ID', error);
-                }else {
-                    console.log('Socket Id saved successfully for the user.');
                 }
             }
         )
@@ -219,14 +229,12 @@ io.on('connection', socket => {
                         {$push:{[`users.${req.receiver}`]: "TO/" + req.message}}
                         ,(error, data) => {
                             if (error) console.log("Error while saving sender's message")
-                            else console.log('Successfully Saved senders message');
                     })
                     userSchema.updateOne(
                         {username: req.receiver},
                         {$push:{[`users.${req.sender}`]: "FROM/" + req.message}}
                         ,(error, data) => {
                             if (error) console.log("Error while saving sender's message")
-                            else console.log('Successfully Saved receivers message');
                     })
                 }
             }
