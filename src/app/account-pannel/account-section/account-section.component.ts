@@ -26,7 +26,7 @@ export class AccountSectionComponent {
       body: JSON.stringify(data)
     })
     .then(resp => resp.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+    .then(data => alert('Updated successfull!'))
+    .catch(err => alert("Something went wrong"));
   }
 }

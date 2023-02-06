@@ -15,6 +15,7 @@ export class WebSocketService {
     friendName: string = "";
     isOnline: boolean = false;
     userList: string[] = [];
+    // userList: string[] = ["Tanmay Chavan"];
     about: string = "";
     password: string = "";
     profileURL: string = "";
@@ -42,6 +43,7 @@ export class WebSocketService {
         this.chats = data.msg;
         this.isOnline = data.status;
         this.chats.shift();
+        console.log(this.chats);
       })
       .catch(err => console.log("Couldn't fetch chats of user", name));
     }
@@ -78,6 +80,10 @@ export class WebSocketService {
     }
 
     sendMessage(message: string, textBox: any, chatSec: any){
+      if (message.trim().length == 0){
+        console.log(message);
+        return;
+      }
       textBox.value = "";
       let msg = "TO/" + message;
       this.chats.push(msg);

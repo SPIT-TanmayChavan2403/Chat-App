@@ -47,10 +47,10 @@
     left: 0px;
     opacity: 0;
     pointer-events: none;
-    
     width: 260px;
     height: 20%;
     display: flex;
+    z-index: 10;
     align-items: center;
     position: absolute;
     border-radius: 8px;

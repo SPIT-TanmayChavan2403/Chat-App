@@ -45,6 +45,7 @@ export class AccountComponent {
     .then(data => {
       alert(data.msg);
       this.displayUserBox();
+      this.service.userList.push(name);
     })
     .catch(err => console.log(err));
   }

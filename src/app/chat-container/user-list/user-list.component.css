@@ -5,9 +5,12 @@
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
+    color: white;
     align-items: center;
+    transition: 0.3s;
+    background-color: var(--black);
     justify-content: space-between;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 }
 
 #color-bar{
@@ -39,6 +42,7 @@
 }
 
 .selectedChat{
-    color: white;
-    background-color: #262626;
+    color: black !important;
+    background-color: white !important;
+    transform: scale(1.06);
 }

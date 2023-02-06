@@ -39,9 +39,5 @@ export class AppComponent {
       this.webSocketService.chats.push(msg);
       console.log(data);
     })
-
-    // if (!window.sessionStorage.getItem('user')){
-    //   alert("PLease login before starting Chat.");
-    // }
   }
 }

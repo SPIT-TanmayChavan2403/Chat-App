@@ -1,9 +1,9 @@
 <div id="nullSec" *ngIf="service.friendName.length == 0" >
-    <div style="width:100% ;height:20%;display: flex;justify-content: center;align-items: center;">
+    <div style="color:white;width:100% ;height:20%;display: flex;justify-content: center;align-items: center;">
         <h1>Please select user to display chat</h1>
     </div>
     <div style="width:100% ;height:80%;">
-        <img src="../../../assets/emptyChat.png" alt="Nothing to display">
+        <img src="../../../assets/emptyChat1.png" alt="Nothing to display">
     </div>
 </div>
 
@@ -25,9 +25,9 @@
 
 <div id="chat-mid-section">
     <div id="nullSec" *ngIf="service.chats.length == 0">
-        <img src="../../../assets/nullChats.png" alt="Nothing to display">
+        <img src="../../../assets/nullChats2.png" alt="Nothing to display">
     </div> 
-    <div  id="messages" #chatSection >
+    <div  id="messages" #chatSection [ngClass]="{'visibilityOfChatSection': service.chats.length == 0}" >
         <li class="msg-cont" *ngFor="let text of service.chats; let lastEle = last">
             {{lastEle ? updateFrame(chatSection) : null}}
             <div class="msg" [ngClass]="{'floatLeft': text.split('/')[0] == 'FROM', 'floatRight': text.split('/')[0] == 'TO'}">
@@ -39,11 +39,16 @@
     
     <div id="image-inp-container" #imgDisplay>
         <div id="img-container">
-            <img [src]="imgURL" alt="Image.jpg">
+            <img *ngIf="imgURL.length == 0" id="placeholder" src="../../../assets/imageSkeleton.png" alt="Placeholder">
+            <img *ngIf="imgURL.length != 0" id="userInpImage"  [src]="imgURL" alt="Image.jpg">
         </div>
         <div id="send-button">
             <h4 (click)="uploadImage(imgDisplay, message ,chatSection )">Send</h4>
         </div>
+        <div id="cancel-button">
+            <h4 (click)="closeImageInpContainer(imgDisplay)">Cancel</h4>
+        </div>
+        <div id="status-line" style="display:{{status}}"></div>
     </div>
 
 </div>
@@ -54,9 +59,11 @@
         <i class="fa-solid fa-paper-plane icon" (click)="service.sendMessage(message.value, message, chatSection)"></i>
     </div>
     <input type="file" #imgInputEle style="opacity: 0; width: 0px;height: 0px; pointer-events: none;" >
-    <i class="fa-solid fa-image icon" (click)="sendImage(imgDisplay, imgInputEle)" ></i>
-    <i class="fa-solid fa-face-smile icon"></i>
-    <!-- <button id="sendButton" (click)="service.sendMessage(message.value, message, chatSecion)" >
-        <img src="../../../assets/sendBtn.png" alt="Send">
-    </button> -->
+    <div style="height: fit-content;    display: flex;    align-items: center; position: relative;">
+        <div id="emoji-container" #emojiContainer>
+            <div (click)="addEmojiToText(emoji, emojiContainer, message)" class="emoji" *ngFor="let emoji of emojis"> {{emoji}} </div>
+        </div>
+        <i class="fa-solid fa-image icon" (click)="sendImage(imgDisplay, imgInputEle)" ></i>
+    </div>
+    <i (click)="displayEmojiContainer(emojiContainer)" class="fa-solid fa-face-smile icon"></i>
 </div>
